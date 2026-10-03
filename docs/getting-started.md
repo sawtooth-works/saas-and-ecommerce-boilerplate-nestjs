@@ -4,13 +4,13 @@ This guide shows how to run the project locally. Docker is the supported way to 
 
 ## Prerequisites
 
-| Tool | Version | Needed for |
-| --- | --- | --- |
-| [Docker](https://www.docker.com/) + Docker Compose v2 | recent | running the stack |
-| `make` | any | the shortcuts in the `Makefile` (optional) |
-| [Node.js](https://nodejs.org) | 22.x | running tooling outside Docker (optional) |
-| [pnpm](https://pnpm.io) | **10.34.6** | installing dependencies outside Docker (optional) |
-| [Stripe CLI](https://docs.stripe.com/stripe-cli) | recent | testing webhooks locally (optional) |
+| Tool                                                  | Version     | Needed for                                        |
+| ----------------------------------------------------- | ----------- | ------------------------------------------------- |
+| [Docker](https://www.docker.com/) + Docker Compose v2 | recent      | running the stack                                 |
+| `make`                                                | any         | the shortcuts in the `Makefile` (optional)        |
+| [Node.js](https://nodejs.org)                         | 22.x        | running tooling outside Docker (optional)         |
+| [pnpm](https://pnpm.io)                               | **10.34.6** | installing dependencies outside Docker (optional) |
+| [Stripe CLI](https://docs.stripe.com/stripe-cli)      | recent      | testing webhooks locally (optional)               |
 
 The pnpm version is pinned in the `packageManager` field of `package.json`. If you install dependencies outside Docker, run `corepack enable` so the right version is picked automatically. Newer pnpm versions (11+) block the Prisma install scripts and fail with `ERR_PNPM_IGNORED_BUILDS`.
 
@@ -57,14 +57,14 @@ The API is ready when you see `Nest application successfully started`.
 
 ## 3. Check that it works
 
-| URL | What it is |
-| --- | --- |
-| `http://localhost:<MAPPED_PORT_NGINX>/` | Landing page |
-| `http://localhost:<MAPPED_PORT_NGINX>/docs` | Swagger UI |
-| `http://localhost:<MAPPED_PORT_NGINX>/metrics` | Prometheus metrics |
-| `http://localhost:<MAPPED_PORT_JAEGER_UI>` | Jaeger (traces) |
-| `http://localhost:<MAPPED_PORT_GRAFANA_UI>` | Grafana (default login `admin` / `admin`) |
-| `localhost:<MAPPED_PORT_DB>` | PostgreSQL, for your database client |
+| URL                                            | What it is                                |
+| ---------------------------------------------- | ----------------------------------------- |
+| `http://localhost:<MAPPED_PORT_NGINX>/`        | Landing page                              |
+| `http://localhost:<MAPPED_PORT_NGINX>/docs`    | Swagger UI                                |
+| `http://localhost:<MAPPED_PORT_NGINX>/metrics` | Prometheus metrics                        |
+| `http://localhost:<MAPPED_PORT_JAEGER_UI>`     | Jaeger (traces)                           |
+| `http://localhost:<MAPPED_PORT_GRAFANA_UI>`    | Grafana (default login `admin` / `admin`) |
+| `localhost:<MAPPED_PORT_DB>`                   | PostgreSQL, for your database client      |
 
 The API container is not published directly: every request goes through Nginx.
 
@@ -83,15 +83,15 @@ docker exec api-dev pnpm run seed
 
 ## Environments
 
-| | Development | Test | Production |
-| --- | --- | --- | --- |
-| Make target | `run_development_docker` | `run_test_docker` | `run_production_docker` |
-| Compose file | `docker-compose.dev.yml` | `docker-compose.test.yml` | `docker-compose.prod.yml` |
-| Dockerfile | `Dockerfile.dev` | `Dockerfile.test` | `Dockerfile.prod` |
-| Migrations on start | `prisma migrate dev` | `prisma migrate dev` | `prisma migrate deploy` |
-| Command | `start:dev` (watch) | `start:dev` (watch) | `start:prod` (`node dist/main`) |
-| Mounted folders | `src`, `prisma`, `test` | `src`, `prisma`, `test` | none |
-| Container names | `*-dev` | `*-test` | `*-prod` |
+|                     | Development              | Test                      | Production                      |
+| ------------------- | ------------------------ | ------------------------- | ------------------------------- |
+| Make target         | `run_development_docker` | `run_test_docker`         | `run_production_docker`         |
+| Compose file        | `docker-compose.dev.yml` | `docker-compose.test.yml` | `docker-compose.prod.yml`       |
+| Dockerfile          | `Dockerfile.dev`         | `Dockerfile.test`         | `Dockerfile.prod`               |
+| Migrations on start | `prisma migrate dev`     | `prisma migrate dev`      | `prisma migrate deploy`         |
+| Command             | `start:dev` (watch)      | `start:dev` (watch)       | `start:prod` (`node dist/main`) |
+| Mounted folders     | `src`, `prisma`, `test`  | `src`, `prisma`, `test`   | none                            |
+| Container names     | `*-dev`                  | `*-test`                  | `*-prod`                        |
 
 `make run_test_docker` runs `docker compose down -v` first, so the test environment always starts with an empty database. See [Testing](testing.md) for how to run the e2e suite.
 
@@ -144,5 +144,5 @@ This is not supported yet. Redis (`redis:6379`) and the tracing exporter (`http:
 
 ## Windows notes
 
-- **Line endings:** with `core.autocrlf=true`, the shell scripts are checked out with CRLF and `make` fails with `No such file or directory` or `$'\r': command not found`. Convert them with `sed -i 's/\r$//' shell/*.sh` or clone with `git config --global core.autocrlf input`. See [Troubleshooting](troubleshooting.md).
+- **Line endings:** `.gitattributes` enforces LF endings. If an existing clone has CRLF line endings, run `git add --renormalize .` or convert shell scripts with `sed -i 's/\r$//' shell/*.sh`. See [Troubleshooting](troubleshooting.md).
 - **Hot reload:** file changes made on a Windows folder reach the container, but the watcher inside it does not get notified, so Nest does not recompile. Cloning the repository inside the WSL 2 file system (for example `~/projects`) usually solves it; otherwise restart the container (`docker restart api-dev`) after your changes.

@@ -23,22 +23,22 @@ cp .env.example .env   # fill in the ports and secrets
 make run_development_docker
 ```
 
-On Windows, run `git config --global core.autocrlf input` **before** cloning (see [Troubleshooting](docs/troubleshooting.md#shell-scripts-and-line-endings)).
+On Windows, line endings are automatically maintained as LF via `.gitattributes` (see [Troubleshooting](docs/troubleshooting.md#shell-scripts-and-line-endings)).
 
 ## Workflow
 
 1. **Fork** the repository and clone your fork.
 2. **Create a branch** from `main` named `<type>/<your-github-user>/<short-description>`, for example `fix/jane/purchase-relation-names` or `feat/jane/subscription-webhooks`.
 
-   | Type | Use for |
-   | --- | --- |
-   | `feat` | a new feature |
-   | `fix` | a bug fix |
+   | Type       | Use for                                  |
+   | ---------- | ---------------------------------------- |
+   | `feat`     | a new feature                            |
+   | `fix`      | a bug fix                                |
    | `refactor` | code changes that do not change behavior |
-   | `test` | tests only |
-   | `docs` | documentation only |
-   | `devops` | Docker, CI, infrastructure |
-   | `chore` | dependencies, tooling, housekeeping |
+   | `test`     | tests only                               |
+   | `docs`     | documentation only                       |
+   | `devops`   | Docker, CI, infrastructure               |
+   | `chore`    | dependencies, tooling, housekeeping      |
 
 3. **Commit** using [Conventional Commits](https://www.conventionalcommits.org/): `<type>(optional scope): <description>`, in English and in the imperative mood.
 

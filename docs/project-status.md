@@ -6,42 +6,42 @@ Legend: ✅ done · 🚧 partial · ❌ not started · 🐞 known bug
 
 ## Feature status
 
-| Area | Feature | Status | Notes |
-| --- | --- | --- | --- |
-| Auth | Sign-up with password / password-less | ✅ | |
-| Auth | Account verification by e-mail code | ✅ | |
-| Auth | Sign-in with password, magic link, OTP | ✅ | OTP edge cases: [#20] |
-| Auth | Refresh token | ✅ | No rotation or revocation: [#32] |
-| Auth | Password recovery | 🐞 | Fails when the recovery and refresh secrets differ: [#14] |
-| Auth | Logout / token revocation | ❌ | [#32] |
-| Auth | Social login (OAuth) | ❌ | |
-| Access control | RBAC (`@Roles`) | ✅ | |
-| Access control | ABAC (CASL) | 🚧 | Only `ADMIN` → `Products` rules exist |
-| Users | Profile routes (get/update me, change password, delete account) | ❌ | `UserModule` only has `findOneByPublicId` |
-| Users | Admin user management | ❌ | |
-| Products | CRUD for single and subscription products | ✅ | |
-| Products | Stripe catalog sync | ❌ | `price_id` is copied by hand |
-| Billing | Stripe Checkout (one-time and subscription) | ✅ | |
-| Billing | Webhook signature verification | ✅ | |
-| Billing | Save purchases after payment | 🐞 | Prisma validation error, nothing is saved: [#13] |
-| Billing | Payment confirmation e-mail | ❌ | Event emitted, no listener: [#21] |
-| Billing | Subscription lifecycle (renewal, cancel, failure) | ❌ | [#21] |
-| Billing | Purchase history / "my subscriptions" routes | ❌ | [#21] |
-| Billing | Entitlements (access based on purchases) | ❌ | [#21] |
-| Billing | Tests | ❌ | [#21] |
-| E-mail | Queue + templates (`pt_br`) | ✅ | |
-| E-mail | Works in the production image | 🐞 | Templates are deleted with `src/`: [#15] |
-| E-mail | Other languages | ❌ | |
-| Observability | Traces (OpenTelemetry → Jaeger) | ✅ | |
-| Observability | Metrics (Prometheus) | 🚧 | Default metrics only; collector target only valid in dev: [#26] |
-| Observability | Grafana dashboards | ❌ | Nothing provisioned |
-| Observability | Health check endpoint | ❌ | |
-| Infrastructure | Docker (dev, test, prod) | ✅ | Prisma setup fixed in [#12] |
-| Infrastructure | CI pipeline | ❌ | [#27] |
-| Infrastructure | Dev container | 🐞 | Points to a `docker-compose.yml` that does not exist: [#25] |
-| Tests | e2e: auth, root, products | ✅ | 64 tests |
-| Tests | Unit tests | ❌ | [#28] |
-| Repository | License | ✅ | [MIT](../LICENSE) |
+| Area           | Feature                                                         | Status | Notes                                                           |
+| -------------- | --------------------------------------------------------------- | ------ | --------------------------------------------------------------- |
+| Auth           | Sign-up with password / password-less                           | ✅     |                                                                 |
+| Auth           | Account verification by e-mail code                             | ✅     |                                                                 |
+| Auth           | Sign-in with password, magic link, OTP                          | ✅     | OTP edge cases: [#20]                                           |
+| Auth           | Refresh token                                                   | ✅     | No rotation or revocation: [#32]                                |
+| Auth           | Password recovery                                               | 🐞     | Fails when the recovery and refresh secrets differ: [#14]       |
+| Auth           | Logout / token revocation                                       | ❌     | [#32]                                                           |
+| Auth           | Social login (OAuth)                                            | ❌     |                                                                 |
+| Access control | RBAC (`@Roles`)                                                 | ✅     |                                                                 |
+| Access control | ABAC (CASL)                                                     | 🚧     | Only `ADMIN` → `Products` rules exist                           |
+| Users          | Profile routes (get/update me, change password, delete account) | ❌     | `UserModule` only has `findOneByPublicId`                       |
+| Users          | Admin user management                                           | ❌     |                                                                 |
+| Products       | CRUD for single and subscription products                       | ✅     |                                                                 |
+| Products       | Stripe catalog sync                                             | ❌     | `price_id` is copied by hand                                    |
+| Billing        | Stripe Checkout (one-time and subscription)                     | ✅     |                                                                 |
+| Billing        | Webhook signature verification                                  | ✅     |                                                                 |
+| Billing        | Save purchases after payment                                    | 🐞     | Prisma validation error, nothing is saved: [#13]                |
+| Billing        | Payment confirmation e-mail                                     | ❌     | Event emitted, no listener: [#21]                               |
+| Billing        | Subscription lifecycle (renewal, cancel, failure)               | ❌     | [#21]                                                           |
+| Billing        | Purchase history / "my subscriptions" routes                    | ❌     | [#21]                                                           |
+| Billing        | Entitlements (access based on purchases)                        | ❌     | [#21]                                                           |
+| Billing        | Tests                                                           | ❌     | [#21]                                                           |
+| E-mail         | Queue + templates (`pt_br`)                                     | ✅     |                                                                 |
+| E-mail         | Works in the production image                                   | 🐞     | Templates are deleted with `src/`: [#15]                        |
+| E-mail         | Other languages                                                 | ❌     |                                                                 |
+| Observability  | Traces (OpenTelemetry → Jaeger)                                 | ✅     |                                                                 |
+| Observability  | Metrics (Prometheus)                                            | 🚧     | Default metrics only; collector target only valid in dev: [#26] |
+| Observability  | Grafana dashboards                                              | ❌     | Nothing provisioned                                             |
+| Observability  | Health check endpoint                                           | ❌     |                                                                 |
+| Infrastructure | Docker (dev, test, prod)                                        | ✅     | Prisma setup fixed in [#12]                                     |
+| Infrastructure | CI pipeline                                                     | ❌     | [#27]                                                           |
+| Infrastructure | Dev container                                                   | 🐞     | Points to a `docker-compose.yml` that does not exist: [#25]     |
+| Tests          | e2e: auth, root, products                                       | ✅     | 64 tests                                                        |
+| Tests          | Unit tests                                                      | ❌     | [#28]                                                           |
+| Repository     | License                                                         | ✅     | [MIT](../LICENSE)                                               |
 
 The billing module has its own detailed breakdown and a plan to finish it: [Billing — what is missing](modules/billing.md#what-is-missing), tracked in the epic [#21].
 
@@ -86,7 +86,6 @@ Confirmed problems, grouped by area, with the issue that tracks each one. Commen
 ### Repository and tooling
 
 - `pnpm run lint` fails: ESLint 9 does not read the legacy `.eslintrc.js`. [#22]
-- Without a `.gitattributes`, Windows checkouts get CRLF line endings, which break the shell scripts and make Prettier flag every file. [#23]
 - No CI: lint, build and tests are not run on pull requests. [#27]
 - No unit tests, so `pnpm test` fails with `No tests found`. [#28]
 - `Injectable();` typo, `package.json` still named `auth-boilerplate-nestjs`. [#33]

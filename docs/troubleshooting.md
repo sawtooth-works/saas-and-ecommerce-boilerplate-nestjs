@@ -51,17 +51,21 @@ Another process uses one of the `MAPPED_PORT_*` ports. Change it in `.env`.
 
 ### `make: ./shell/check_env_vars.sh: No such file or directory` or `$'\r': command not found`
 
-The scripts were checked out with Windows line endings (CRLF). Convert them:
+The repository defines `.gitattributes` to ensure LF line endings across all platforms. If files in an existing clone were checked out with CRLF endings, renormalize them:
+
+```bash
+git add --renormalize .
+```
+
+Alternatively, convert the shell scripts directly:
 
 ```bash
 sed -i 's/\r$//' shell/check_env_vars.sh shell/run-docker.sh
 ```
 
-To avoid it for good, configure Git before cloning: `git config --global core.autocrlf input`.
-
 ### Prettier reports every file
 
-The same cause: with CRLF checkouts, Prettier (`endOfLine: lf` by default) flags every line. Use `core.autocrlf input` and check out the files again.
+The same cause: with CRLF checkouts, Prettier (`endOfLine: lf` by default) flags every line. Running `git add --renormalize .` will normalize the line endings to LF.
 
 ## Application
 
